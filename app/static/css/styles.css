@@ -1,0 +1,15 @@
+.logo {
+  margin-top: 1%;
+  font-size: 2em;
+  color: blue;
+}
+.intro {
+  margin-top: 10%;
+  text-align: center;
+}
+.login {
+  margin-top: 10%;
+}
+.sign-up {
+  margin-top: 10%;
+}
