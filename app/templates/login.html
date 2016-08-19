@@ -7,7 +7,7 @@
 <form action="" method="post" name="login">
     {{ form.hidden_tag() }}
     <p>
-        Please enter your OpenID, or select one of the providers below:<br>
+        Not yet a user? Sign Up <a href="{{ url_for('signup') }}">Here</a>:<br>
     <form action="">
         <input type="text" name="email">
         <input type="text" name="password">
