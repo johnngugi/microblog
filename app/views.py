@@ -53,7 +53,7 @@ def login():
 @login_required
 def user(nickname):
     user = User.query.filter_by(nickname=nickname).first()
-    if user == None:
+    if user is None:
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
     posts = [
