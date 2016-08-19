@@ -5,6 +5,16 @@ from .models import User
 from flask_security import login_user, logout_user, current_user, login_required
 
 
+@lm.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+
+@app.before_request
+def before_request():
+    g.user = current_user
+
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -26,11 +36,6 @@ def index():
                            posts=posts)
 
 
-@lm.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated:
@@ -44,13 +49,24 @@ def login():
                            )
 
 
-@app.before_request
-def before_request():
-    g.user = current_user
-
-
-@app.route("/logout")
+@app.route('/user/<nickname>')
 @login_required
+def user(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user == None:
+        flash('User %s not found.' % nickname)
+        return redirect(url_for('index'))
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html',
+                           user=user,
+                           posts=posts
+                           )
+
+
+@app.route('/logout')
 def logout():
     logout_user()
     return redirect('/login')
