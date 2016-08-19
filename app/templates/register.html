@@ -1,0 +1,17 @@
+{% block content %}
+    <h1>Sign Up</h1>
+    <div class="row">
+        <div class="large-6-centered columns">
+           {% from "_formhelpers.html" import render_field %}
+            <form method=post action="/register">
+                <dl>
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.username) }}
+                    {{ render_field(form.password) }}
+                    {{ render_field(form.confirm) }}
+                </dl>
+                <p><input type=submit value=Register>
+            </form>
+        </div>
+    </div>
+{% endblock %}

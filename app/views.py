@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app import app, lm, db
-from .forms import LoginForm, EditForm
+from .forms import LoginForm, EditForm, RegistrationForm
 from .models import User
 from flask_security import login_user, logout_user, current_user, login_required
 
@@ -41,13 +41,28 @@ def index():
                            posts=posts)
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if request.method == 'POST' and form.validate():
+        print 'dddddv'
+        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('You can now login.')
+        return redirect(url_for('index'))
+    return render_template('/register.html', form=form)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        session['remember_me'] = form.remember_me.data
+        user = User.query.filter_by(email=form.email.data).first()
+        login_user(user, form.remember_me.data)
+        return redirect(url_for('index'))
     return render_template('login.html',
                            title='Sign In',
                            form=form
