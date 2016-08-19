@@ -5,7 +5,7 @@
 **Repo Link**
 https://github.com/johnngugi/microblog
 
-**Features**  
+**Features**
 1. Sign Up and Login pages  
 2. Make blog posts
 
