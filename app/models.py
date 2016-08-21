@@ -87,16 +87,16 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+
     def can(self, permissions):
         return self.role is not None and \
                (self.role.permissions & permissions) == permissions
 
     def is_administrator(self):
         return self.can(Permission.ADMINISTER)
-
-    def ping(self):
-        self.last_seen = datetime.utcnow()
-        db.session.add(self)
 
 
 class AnonymousUser(AnonymousUserMixin):
@@ -105,6 +105,8 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
+
+lm.anonymous_user = AnonymousUser
 
 
 class Post(db.Model):

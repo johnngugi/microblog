@@ -17,17 +17,16 @@ def before_request():
 
 
 @app.route('/')
-@app.route('/index/')
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     form = PostForm()
-    if current_user.can(Permission.WRITE_ARTICLES) and \
-            form.validate_on_submit():
+    if g.user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
         post = Post(body=form.body.data,
-                    author=current_user._get_current_object())
+                    author=g.user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('.index'))
+        return redirect(url_for('index'))
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('index.html', form=form, posts=posts)
 
@@ -67,9 +66,8 @@ def user(username):
     if user is None:
         flash('User %s not found.' % username)
         return redirect(url_for('index'))
-    return render_template('user.html',
-                           user=user
-                           )
+    posts = user.posts.order_by(Post.timestamp.desc()).all()
+    return render_template('user.html', user=user, posts=posts)
 
 
 @app.route('/edit', methods=['GET', 'POST'])

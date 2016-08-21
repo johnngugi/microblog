@@ -88,3 +88,15 @@
     width: 10%;
     margin: 1% 0 3% 3%;
 }
+
+/*
+  ========================================
+  Post
+  ========================================
+*/
+
+.posts li {
+    list-style-type: none;
+    background: #bfbfbf;
+    margin: 3% 0;
+}
