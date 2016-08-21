@@ -3,17 +3,35 @@
 
 {% block content %}
 
-<h1>Sign In</h1>
-<form action="" method="post" name="login">
-    {{ form.hidden_tag() }}
-    <p>
-        Not yet a user? Sign Up <a href="{{ url_for('signup') }}">Here</a>:<br>
-    <form action="">
-        <input type="text" name="email">
-        <input type="text" name="password">
-    </form>
-    </p>
-    <p>{{ form.remember_me }} Remember Me</p>
-    <p><input type="submit" value="Sign In"></p>
-</form>
+    <div class="row logo">
+      <div class="large-3 columns">Microblog</div>
+      <div class="large-9 columns"></div>
+    </div>
+
+    <div class="row">
+      <div class="large-3 columns"></div>
+      <div class="large-6 large-centered columns intro">
+        Welcome To My Chat App
+        <div class="large-12 columns login">
+          <form method=post action="/login">
+              {{ form.hidden_tag() }}
+            Email
+            <input type="text" placeholder="email" name="email">
+            Password
+            <input type="text" placeholder="password" name="password">
+              <p>{{ form.remember_me }} Remember Me</p>
+            <button class="success button" type="submit">Log In</button>
+          </form>
+        </div>
+      </div>
+      <div class="large-3 columns"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="larg-12 columns">
+        Not yet a user? Sign Up <a href="{{ url_for('register') }}">Here</a>:<br>
+        </div>
+    </div>
+
 {% endblock %}

@@ -2,20 +2,20 @@ from flask_wtf import Form
 from wtforms import StringField, BooleanField, TextAreaField, PasswordField, SubmitField, ValidationError
 from wtforms.validators import DataRequired
 from app.models import User
-from wtforms.validators import Required, Length, Email, Regexp, EqualTo
+from wtforms.validators import Length, Email, Regexp, EqualTo
 
 
 class RegistrationForm(Form):
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),
-                                            Email()])
+                                             Email()])
     username = StringField('Username', validators=[
         DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-                                                'Usernames must have only letters, '
-                                                'numbers, dots or underscores')])
+                                              'Usernames must have only letters, '
+                                              'numbers, dots or underscores')])
     password = PasswordField('Password', validators=[
-                                                    DataRequired(),
-                                                    EqualTo('confirm', message='Passwords must match.')])
-    confirm = PasswordField('Repeat Password')
+        DataRequired(), EqualTo('Password2', message='Passwords must match.')])
+    password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    submit = SubmitField('Register')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
@@ -27,9 +27,9 @@ class RegistrationForm(Form):
 
 
 class LoginForm(Form):
-    email = StringField('Email', validators=[Required(), Length(1, 64),
-                                            Email()])
-    password = PasswordField('Password', validators=[Required()])
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+                                             Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log In')
 
