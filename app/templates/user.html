@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user == g.user %}
+        <a class="button" href="{{ url_for('edit_profile') }}">Edit Profile</a>
+    {% endif %}
+    {% if g.user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('edit_profile_admin', id=user.id) }}">
+            Edit Profile [Admin]
+        </a>
+    {% endif %}
     <table>
         <tr>
             <td>
                 <h1>User: {{ user.username }}</h1>
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
                 {% if user.last_seen %}<p><i>Last seen on: {{ user.last_seen }}</i></p>{% endif %}
-                {% if user.id == g.user.id %}<p><a href="{{ url_for('edit') }}">Edit</a></p>{% endif %}
             </td>
         </tr>
     </table>

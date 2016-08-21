@@ -1,27 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Edit Your Profile</h1>
-    <form action="" method="POST" name="edit">
-        {{ form.hidden_tag() }}
-        <table>
-            <tr>
-                <td>Your nickname:</td>
-                <td>
-                    {{ form.nickname(size=24) }}
-                    {% for error in form.errors.nickname %}
-                    <br><span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>About Yourself:</td>
-                <td>{{ form.about_me(cols=32, rows=4) }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Save Changes"></td>
-            </tr>
-        </table>
-    </form>
+<div>
+    <h1>{{ g.user.username }}</h1>
+    {% if g.user.name %}
+        <p>
+            {% if g.user.name %}{{ g.user.name }}{% endif %}
+        </p>
+    {% endif %}
+    {% if current_user.is_administrator() %}
+        <p><a href="mailto:{{ g.user.email }}">{{ g.user.email }}</a></p>
+    {% endif %}
+    {% if g.user.about_me %}<p>{{ g.user.about_me }}</p>{% endif %}
+    <p>
+{#        Member since {{ moment(g.user.member_since) }}.#}
+{#        Last seen {{ moment(g.user.last_seen) }}#}
+    </p>
+</div>
 {% endblock %}
