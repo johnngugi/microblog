@@ -11,9 +11,9 @@ class RegistrationForm(Form):
     username = StringField('Username', validators=[
         DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                               'Usernames must have only letters, '
-                                              'numbers, dots or underscores')])
+                                                'numbers, dots or underscores')])
     password = PasswordField('Password', validators=[
-        DataRequired(), EqualTo('Password2', message='Passwords must match.')])
+        DataRequired(), EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
@@ -34,21 +34,8 @@ class LoginForm(Form):
     submit = SubmitField('Log In')
 
 
-class EditForm(Form):
-    nickname = StringField('nickname', validators=[DataRequired()])
-    about_me = TextAreaField('about_me', validators=[DataRequired()])
-
-    def __init__(self, original_nickname, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
-        self.original_nickname = original_nickname
-
-    def validate(self):
-        if not Form.validate(self):
-            return False
-        if self.nickname.data == self.original_nickname:
-            return True
-        user = User.query.filter_by(nickname=self.nickname.data).first()
-        if user != None:
-            self.nickname.errors.append('This nickname is already in use. Please choose another one.')
-            return False
-        return True
+class EditProfileForm(Form):
+    name = StringField('Real name', validators=[Length(0, 64)])
+    location = StringField('Location', validators=[Length(0, 64)])
+    about_me = TextAreaField('About me')
+    submit = SubmitField('Submit')
