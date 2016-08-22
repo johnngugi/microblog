@@ -21,7 +21,7 @@ def before_request():
 @login_required
 def index():
     form = PostForm()
-    if g.user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
+    if form.validate_on_submit():
         post = Post(body=form.body.data,
                     author=g.user._get_current_object())
         db.session.add(post)

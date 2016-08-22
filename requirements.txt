@@ -1,4 +1,5 @@
 alembic==0.8.7
+bleach==1.4.3
 blinker==1.4
 click==6.6
 decorator==4.0.10
@@ -9,16 +10,20 @@ Flask-Mail==0.9.1
 Flask-Migrate==2.0.0
 Flask-OAuth==0.12
 Flask-OpenID==1.2.5
+Flask-PageDown==0.2.1
 Flask-Principal==0.4.0
 Flask-Script==2.0.5
 Flask-Security==1.7.5
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
 ForgeryPy==0.1
+gunicorn==19.6.0
+html5lib==0.9999999
 httplib2==0.9.2
 itsdangerous==0.24
 Jinja2==2.8
 Mako==1.0.4
+Markdown==2.6.6
 MarkupSafe==0.23
 oauth2==1.9.0.post1
 passlib==1.6.5
