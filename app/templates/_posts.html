@@ -1,0 +1,12 @@
+{#<table>#}
+{#    <tr valign="top">#}
+{#        <td></td><td><i>{{ post.author.username }} says:</i><br>{{ post.body }}</td>#}
+{#    </tr>#}
+{#</table>#}
+<div class="post-body">
+    {% if post.body_html %}
+        {{ post.body_html | safe }}
+    {% else %}
+        {{ post.body }}
+    {% endif %}
+</div>
