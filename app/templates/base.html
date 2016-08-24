@@ -19,28 +19,39 @@
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 {% if g.user.is_authenticated %}
                 <li><a href="{{ url_for('user', username=g.user.username) }}">Profile</a></li>
-                <li><a>Edit</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
             </ul>
         </div>
     </div>
     <hr>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    {% block page_content %}
+
     {% block content %}
-        {% for post in posts %}
-            <p>
-                {{ post.author.username }} says: <b>{{ post.body }}</b>
-            </p>
-        {% endfor %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }} </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+{#        {% for post in posts %}#}
+{#            <p>#}
+{#                {{ post.author.username }} says: <b>{{ post.body }}</b>#}
+{#            </p>#}
+{#        {% endfor %}#}
     {% endblock %}
+
+    {% block scripts %}
+        <script src="{{ url_for('static', filename='jquery-3.0.0.js') }}"></script>
+        {{ moment.include_moment() }}
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% endblock %}
+
+  {% endblock %}
+
   </body>
 </html>
