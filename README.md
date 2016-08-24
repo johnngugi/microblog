@@ -1,6 +1,6 @@
 # Blog
 
-**Project Details** [An online](bloghttps://johnmicroblog.herokuapp.com)
+**Project Details** [An online blog](https://johnmicroblog.herokuapp.com)
 
 **Repo Link**
 https://github.com/johnngugi/microblog
