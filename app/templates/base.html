@@ -2,15 +2,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {{ moment.include_jquery() }}
+      {{ moment.include_moment() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 {#    <script src="https://use.fontawesome.com/b3c15b8030.js"></script>#}
-    <title>John Ngugi</title>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
     <title>microblog</title>
-    {% endif %}
   </head>
   <body>
     <div class="expanded row navbar">
@@ -37,22 +34,10 @@
                 </ul>
             {% endif %}
         {% endwith %}
-
-{#        {% for post in posts %}#}
-{#            <p>#}
-{#                {{ post.author.username }} says: <b>{{ post.body }}</b>#}
-{#            </p>#}
-{#        {% endfor %}#}
     {% endblock %}
-
-    {% block scripts %}
-        <script src="{{ url_for('static', filename='jquery-3.0.0.js') }}"></script>
-{#        {{ super() }}#}
-        {{ moment.include_moment() }}
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
-    {% endblock %}
-
   {% endblock %}
 
+{#    <script src="{{ url_for('static', filename='jquery-3.0.0.js') }}"></script>#}
+{#    <script src="{{ url_for('static', filename='script.js') }}"></script>#}
   </body>
 </html>

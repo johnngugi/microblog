@@ -8,7 +8,7 @@
                 <img src="{{ g.user.gravatar(size=256) }}">
             </div>
             <div class="large-6 columns">
-                <p>{{ user.username }}</p>
+                <p class="username">{{ user.username }}</p>
                 <div>
                     <button class="success button" type="submit" style="margin-top: 10%;">Edit</button>
                 </div>
@@ -24,8 +24,10 @@
                 </a>
                 <br> Email: johnngugi777@gmail.com
                 <br> About Me: {{ user.about_me }}
-                <br> Member since {{ moment(user.member_since).format('L') }}
-                <br> Last Seen: {{ moment(user.last_seen).fromNow() }}
+                {% if member_since %}
+                <br> Member since {{ moment(user.member_since) }}
+                {% endif %}
+                <br> Last Seen: {{ moment(current_time).fromNow(refresh=True) }}
             </p>
         </div>
     </div>

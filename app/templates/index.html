@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block page_content %}
 {% block content %}
 
     <div class="row logo">
@@ -20,27 +21,38 @@
             </form>
         </div>
     </div>
+
     <div class="row">
-        <ul class="posts">
+        <div class="large-12 columns">
             {% for post in posts %}
-                <div class="large-12 columns">
-                    <li class="post">
-                        <div class="profile-thumbnail">
-                            <a href="{{ url_for('.user', username=post.author.username) }}"></a>
-                        </div>
-                        <div class="post-date">{{ post.timestamp.strftime('%Y-%m-%d') }}</div>
-                        <div class="post-author">
+                <li>
+                    <div class="row">
+                        <p>{{ post.timestamp.strftime('%Y-%m-%d') }}</p>
+                        <div style="margin-bottom: 2%;font-size: 1.5em;">
                             <a href="{{ url_for('.user', username=post.author.username) }}">
                                 {{ post.author.username }}
                             </a>
                         </div>
-                        <div class="postbody">{{ post.body }}</div>
-                    </li>
-                    <hr>
-                </div>
+                    </div>
+                    <div class="row posts">
+                        <div class="large-2 columns">
+                            <div class="thumbnail">
+                                <img class="" src="{{ post.author.gravatar(size=40) }}">
+                            </div>
+                        </div>
+                        <div class="large-10 columns">
+                            {% if post.body_html %}
+                                {{ post.body_html | safe }}
+                            {% else %}
+                                {{ post.body }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
             {% endfor %}
-        </ul>
+        </div>
     </div>
+{% endblock %}
 {% endblock %}
 
 

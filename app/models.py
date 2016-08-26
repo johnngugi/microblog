@@ -68,11 +68,6 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
-    def ping(self):
-        self.last_seen = datetime.utcnow()
-        db.session.add(self)
-        db.session.commit()
-
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
 
@@ -103,6 +98,10 @@ class User(UserMixin, db.Model):
     def is_administrator(self):
         return self.can(Permission.ADMINISTER)
 
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+        # db.session.commit()
 
     def gravatar(self, size=100, default='identicon', rating='g'):
         if request.is_secure:

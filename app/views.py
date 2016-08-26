@@ -68,7 +68,7 @@ def user(username):
         flash('User %s not found.' % username)
         return redirect(url_for('index'))
     posts = user.posts.order_by(Post.timestamp.desc()).all()
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user.html', user=user, posts=posts, current_time=datetime.datetime.utcnow())
 
 
 @app.route('/edit', methods=['GET', 'POST'])
