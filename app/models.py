@@ -68,6 +68,11 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+        db.session.commit()
+
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
 
@@ -90,11 +95,6 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
-
-    def ping(self):
-        self.last_seen = datetime.utcnow()
-        db.session.add(self)
-        db.session.commit()
 
     def can(self, permissions):
         return self.role is not None and \

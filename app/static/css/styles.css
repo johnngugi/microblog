@@ -40,7 +40,7 @@
     margin-top: 10%;
 }
 .sign-up {
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 /*
@@ -91,12 +91,15 @@
 
 /*
   ========================================
-  Post
+  Profile
   ========================================
 */
 
-.posts li {
-    list-style-type: none;
-    background: #bfbfbf;
-    margin: 3% 0;
+.profile {
+    text-align: center;
+    vertical-align: bottom;
+    padding: 10%;
+}
+.info {
+    padding: 2% 0 2% 10%;
 }

@@ -28,7 +28,7 @@
                         <div class="profile-thumbnail">
                             <a href="{{ url_for('.user', username=post.author.username) }}"></a>
                         </div>
-                        <div class="post-date">{{ post.timestamp }}</div>
+                        <div class="post-date">{{ post.timestamp.strftime('%Y-%m-%d') }}</div>
                         <div class="post-author">
                             <a href="{{ url_for('.user', username=post.author.username) }}">
                                 {{ post.author.username }}
