@@ -76,16 +76,16 @@ def user(username):
 def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
-        g.user.name = form.name.data
-        g.user.location = form.location.data
-        g.user.about_me = form.about_me.data
-        db.session.add(user)
-        db.session.commit()
+        user = User.query.all()
+        for i in user:
+            g.user.location = form.location.data
+            g.user.about_me = form.about_me.data
+            db.session.add(i)
+            db.session.commit()
         flash('Your profile has been updated.')
-        return redirect(url_for('.user', username=g.user.username))
-    form.name.data = g.user.name
-    form.location.data = g.user.location
-    form.about_me.data = g.user.about_me
+        return redirect(url_for('user', username=g.user.username))
+    # form.location.data = g.user.location
+    # form.about_me.data = g.user.about_me
     return render_template('edit.html', form=form)
 
 

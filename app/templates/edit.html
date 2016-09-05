@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
+{% block page_content %}
 {% block content %}
-<div>
-    <h1>{{ g.user.username }}</h1>
-    {% if g.user.name %}
-        <p>
-            {% if g.user.name %}{{ g.user.name }}{% endif %}
-        </p>
-    {% endif %}
-    {% if current_user.is_administrator() %}
-        <p><a href="mailto:{{ g.user.email }}">{{ g.user.email }}</a></p>
-    {% endif %}
-    {% if g.user.about_me %}<p>{{ g.user.about_me }}</p>{% endif %}
-    <p>
-{#        Member since {{ moment(g.user.member_since) }}.#}
-{#        Last seen {{ moment(g.user.last_seen) }}#}
-    </p>
-</div>
+  <div class="row">
+      <div class="large-8 columns">
+        <div class="large-12 columns edit">
+          <form method="post" action="/edit">
+              {{ form.hidden_tag() }}
+            About Me<input type="text" name="about_me" placeholder="About Me" value="">
+            Location<input type="text" name="location" placeholder="Location" value="">
+            <button class="success button" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="large-4 columns"></div>
+    </div>
+{% endblock %}
 {% endblock %}
