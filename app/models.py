@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin, current_app
 from markdown import markdown
 import bleach
-import hashlib
+import urllib, hashlib
 
 
 @lm.user_loader
@@ -101,16 +101,14 @@ class User(UserMixin, db.Model):
     def ping(self):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
-        # db.session.commit()
+        db.session.commit()
 
-    def gravatar(self, size=100, default='identicon', rating='g'):
-        if request.is_secure:
-            url = 'https://secure.gravatar.com/avatar'
-        else:
-            url = 'http://www.gravatar.com/avatar'
-            hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-            return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
-                url=url, hash=hash, size=size, default=default, rating=rating)
+    def gravatar(self, size=100, default='identicon'):
+
+        url = "https://www.gravatar.com/avatar/" + hashlib.md5(self.email.lower()).hexdigest() + "?"
+        url += urllib.urlencode({'d':default, 's':str(size)})
+
+        return url
 
 
 class AnonymousUser(AnonymousUserMixin):

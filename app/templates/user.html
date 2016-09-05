@@ -5,7 +5,7 @@
     <div class="profile">
         <div class="row">
             <div class="large-6 columns">
-                <img src="{{ g.user.gravatar(size=256) }}">
+                <img src="{{ user.gravatar(size=256) }}">
             </div>
             <div class="large-6 columns">
                 <p class="username">{{ user.username }}</p>
@@ -22,12 +22,12 @@
                 <a href="http://maps.google.com/?q={{ g.user.location }}">
                     Location: {{ g.user.location }}
                 </a>
-                <br> Email: johnngugi777@gmail.com
+                <br> Email: {{ user.email }}
                 <br> About Me: {{ user.about_me }}
                 {% if member_since %}
                 <br> Member since {{ moment(user.member_since) }}
                 {% endif %}
-                <br> Last Seen: {{ moment(current_time).fromNow(refresh=True) }}
+                <br> Last Seen: {{ moment().fromTime(user.last_seen) }}
             </p>
         </div>
     </div>
