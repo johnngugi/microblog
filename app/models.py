@@ -77,6 +77,21 @@ class User(UserMixin, db.Model):
         if self.role is None:
             self.role = Role.query.filter_by(default=True).first()
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_confirmed(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
+
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
@@ -101,7 +116,6 @@ class User(UserMixin, db.Model):
     def ping(self):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
-        db.session.commit()
 
     def gravatar(self, size=100, default='identicon'):
 
@@ -112,6 +126,7 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
+
     def can(self, permissions):
         return False
 

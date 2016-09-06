@@ -15,6 +15,10 @@ def load_user(user_id):
 @app.before_request
 def before_request():
     g.user = current_user
+    if current_user.is_authenticated:
+        current_user.ping()
+        if not current_user.is_confirmed:
+            return redirect(url_for('login'))
 
 
 @app.route('/')

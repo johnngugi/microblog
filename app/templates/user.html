@@ -27,7 +27,7 @@
                 {% if member_since %}
                 <br> Member since {{ moment(user.member_since) }}
                 {% endif %}
-                <br> Last Seen: {{ moment().fromTime(user.last_seen) }}
+                <br> Last Seen: {{ moment(user.last_seen).fromNow() }}
             </p>
         </div>
     </div>
