@@ -1,5 +1,5 @@
 import datetime
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for, request, g, abort
 from app import app, lm, db
 from .forms import RegistrationForm, LoginForm, EditProfileForm, EditProfileAdminForm, PostForm
 from .models import User, Role, Permission, Post
@@ -97,6 +97,22 @@ def edit_profile():
 def post(id):
     post = Post.query.get_or_404(id)
     return render_template('post.html', posts=[post])
+
+
+@app.route('/editpost/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author:
+        abort(404)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.body = form.body.data
+        db.session.add(post)
+        flash('The post has been updated.')
+        return redirect(url_for('post', id=post.id))
+    form.body.data = post.body
+    return render_template('editpost.html', form=form)
 
 
 @login_required
