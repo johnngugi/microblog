@@ -1,12 +1,30 @@
-{#<table>#}
-{#    <tr valign="top">#}
-{#        <td></td><td><i>{{ post.author.username }} says:</i><br>{{ post.body }}</td>#}
-{#    </tr>#}
-{#</table>#}
-<div class="post-body">
-    {% if post.body_html %}
-        {{ post.body_html | safe }}
-    {% else %}
-        {{ post.body }}
-    {% endif %}
-</div>
+{% for post in posts %}
+<li>
+                    <div class="row">
+                        <p>{{ post.timestamp.strftime('%Y-%m-%d') }}</p>
+                        <div style="margin-bottom: 2%;font-size: 1.5em;">
+                            <a href="{{ url_for('user', username=post.author.username) }}">
+                                {{ post.author.username }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row posts">
+                        <div class="large-2 columns">
+                            <div class="thumbnail">
+                                <img class="" src="{{ post.author.gravatar(size=40) }}">
+                            </div>
+                        </div>
+                        <div class="large-10 columns">
+                            {% if post.body_html %}
+                                {{ post.body_html | safe }}
+                            {% else %}
+                                {{ post.body }}
+                            {% endif %}
+                            <a href="{{ url_for('post', id=post.id) }}">
+                                <span class="label">Permalink</span>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+{% endfor %}

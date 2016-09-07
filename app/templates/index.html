@@ -46,8 +46,12 @@
                             {% else %}
                                 {{ post.body }}
                             {% endif %}
+                            <a href="{{ url_for('post', id=post.id) }}">
+                                <span class="label">Permalink</span>
+                            </a>
                         </div>
                     </div>
+                    <hr>
                 </li>
             {% endfor %}
         </div>
