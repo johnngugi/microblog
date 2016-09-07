@@ -3,5 +3,5 @@
 *.pyc
 .idea
 tmp
-
+*.db
 /.env
