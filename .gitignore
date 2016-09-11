@@ -1,7 +1,8 @@
 
-/flask/
+
 *.pyc
 .idea
 tmp
 *.db
 /.env
+/venv/

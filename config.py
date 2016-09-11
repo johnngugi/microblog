@@ -1,6 +1,7 @@
 import os
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'secret-key'
+FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
