@@ -1,6 +1,16 @@
 li {
     list-style-type: none;
 }
+.row h1 {
+    margin-left: 5%;
+    margin-bottom: 6%;
+}
+p {
+    font-size: 1.5em;
+}
+button {
+    margin-bottom: 5%;
+}
 
 /*
   ========================================
@@ -43,9 +53,7 @@ li {
 .login {
     margin-top: 10%;
 }
-.sign-up {
-    margin-top: 5%;
-}
+
 
 /*
   ========================================
@@ -63,7 +71,7 @@ li {
     margin: 0 0 1px;
 }
 #chatBox {
-    font-family: tahoma;
+    font-family: tahoma, serif;
     font-size: 12px;
     color: black;
     border: 1px teal solid;
@@ -78,8 +86,8 @@ li {
     margin-top: 2%;
 }
 #usersOnLine {
-    font-family: tahoma;
-    font-size: 14;
+    font-family: tahoma, serif;
+    font-size: 14px;
     color: orange;
     border: 1px teal solid;
     height: 50vh;
@@ -97,8 +105,10 @@ li {
     width: 10%;
     margin: 1% 0 3% 3%;
 }
-.posts {
-
+.label {
+    position: relative;
+    left: 80%;
+    cursor: auto;
 }
 
 /*
@@ -126,4 +136,10 @@ li {
 */
 .edit {
   margin-top: 10%;
+}
+
+.register {
+    position: absolute;
+    text-align: center;
+    left: 23%;
 }

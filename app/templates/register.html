@@ -1,18 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_content %}
 {% block content %}
-    <h1>Sign Up</h1>
     <div class="row">
-        <div class="large-6-centered columns">
-           {% from "_formhelpers.html" import render_field %}
+    <h1 id="signup">Sign Up</h1>
+        <div class="large-6 columns register">
             <form method=post action="/register">
                 {{ form.hidden_tag() }}
-                <dl>
-                    {{ render_field(form.email) }}
-                    {{ render_field(form.username) }}
-                    {{ render_field(form.password) }}
-                    {{ render_field(form.password2) }}
-                </dl>
-                <p><input type="submit" value="Register"></p>
+                Email
+                <input type="text" placeholder="email" name="email">
+                Username
+                <input type="text" placeholder="username" name="username">
+                Password
+                <input type="password" placeholder="password" name="password">
+                Confirm Password
+                <input type="password" placeholder="confirm password" name="password2">
+                <button class="success button" type="submit">Register</button>
             </form>
         </div>
     </div>
+{% endblock %}
 {% endblock %}

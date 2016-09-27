@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-    {% block title %}Posts{% endblock %}
 {% block content %}
     <div class="row messaging">
         <div class="large-12 columns">
-            What's on your mind
+            <h1>What's on your mind</h1>
             <form method="POST" action="/index">
                 {{ form.hidden_tag() }}
                 <dl>
@@ -13,7 +12,7 @@
                     {{ form.body(only_preview=True) }}
                     {{ form.body(only_input=True, rows=10) }}
                 </dl>
-                <p><input type="submit" value="Post"></p>
+                <button class="success button" type="submit">Post</button>
             </form>
         </div>
     </div>
